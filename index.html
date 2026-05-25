@@ -277,10 +277,51 @@
 
     .card { scroll-margin-top: 5.5rem; }
 
+    .navbar-hamburger {
+      display: none;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 0.5rem;
+      color: rgba(255,255,255,0.85);
+      font-size: 1.1em;
+      padding: 0.3rem 0.65rem;
+      cursor: pointer;
+      line-height: 1;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+    .nav-mobile-dropdown {
+      position: absolute;
+      top: 100%;
+      left: 0; right: 0;
+      background: rgba(22, 36, 56, 0.97);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-top: 1px solid rgba(255,255,255,0.08);
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.25s ease;
+    }
+    .nav-mobile-dropdown.open { max-height: 20rem; }
+    .nav-mobile-dropdown a {
+      display: block;
+      color: rgba(255,255,255,0.85);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.9em;
+      font-weight: bold;
+      letter-spacing: 0.03em;
+      padding: 0.85rem 1.5rem;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .nav-mobile-dropdown a:last-child { border-bottom: none; }
+    .nav-mobile-dropdown a:active { background: rgba(255,255,255,0.08); }
+
     @media (max-width: 768px) {
       .navbar-links { display: none; }
-      .navbar { justify-content: center; }
+      .navbar { justify-content: space-between; }
       .navbar-logo { padding: 0; }
+      .navbar-hamburger { display: block; }
       .news-feed { max-height: none; overflow-y: visible; }
       .team-grid-responsive { grid-template-columns: 1fr !important; }
     }
@@ -336,7 +377,14 @@
         <a class="navbar-item" href="#publications">Publications</a>
         <a class="navbar-item" href="#teaching">Teaching</a>
       </div>
+      <button class="navbar-hamburger" id="nav-toggle" aria-label="Open navigation">☰</button>
     </nav>
+    <div class="nav-mobile-dropdown" id="nav-dropdown">
+      <a href="#news">News</a>
+      <a href="#team">Team</a>
+      <a href="#publications">Publications</a>
+      <a href="#teaching">Teaching</a>
+    </div>
   </header>
 
   <section class="section pt-3 pb-4">
@@ -1245,6 +1293,22 @@
         }
       });
     });
+
+    // Mobile nav toggle
+    (function () {
+      const navToggle = document.getElementById('nav-toggle');
+      const navDropdown = document.getElementById('nav-dropdown');
+      navToggle.addEventListener('click', () => {
+        const isOpen = navDropdown.classList.toggle('open');
+        navToggle.textContent = isOpen ? '✕' : '☰';
+      });
+      navDropdown.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', () => {
+          navDropdown.classList.remove('open');
+          navToggle.textContent = '☰';
+        });
+      });
+    })();
   </script>
 </body>
 </html>
