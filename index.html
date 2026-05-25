@@ -1,0 +1,1358 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>provsec</title>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+  <link rel="stylesheet" href="custom.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body, p, a, li, span, td, .navbar-item, .member-role, .course-meta,
+    .pub-authors, .pub-venue, .pub-links {
+      font-family: 'Montserrat', sans-serif;
+      color: #1a1a1a;
+    }
+
+    .section-title, .title {
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .site-header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      background: rgba(30, 48, 72, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 0.6rem 1rem;
+    }
+    .navbar {
+      background: transparent;
+      padding: 0;
+      max-width: 1000px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: none;
+    }
+    .navbar-logo {
+      display: flex;
+      align-items: center;
+      padding: 0 0 0 1rem;
+    }
+    .navbar-links {
+      background-color: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 2rem;
+      padding: 0.5rem 0.9rem;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+      display: flex;
+      align-items: center;
+      gap: 0.1rem;
+    }
+    .navbar-item {
+      color: rgba(255, 255, 255, 0.85);
+      font-size: 0.85em;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: bold;
+      letter-spacing: 0.03em;
+      border-radius: 0.5rem;
+      transition: background 0.15s;
+      padding: 0.2rem 0.65rem;
+      text-decoration: none;
+    }
+    .navbar-item:hover {
+      background-color: rgba(255, 255, 255, 0.12) !important;
+      color: white;
+    }
+
+    .section-title {
+      font-size: 1.1em;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: #1e3048;
+      margin-bottom: 0.9rem;
+    }
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 2.5rem;
+      height: 3px;
+      background: #4a85c2;
+      border-radius: 2px;
+      margin-top: 0.4rem;
+    }
+
+    .card p a, .card li a {
+      color: #4a85c2;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .card p a:hover, .card li a:hover {
+      text-decoration: underline;
+    }
+
+    .research-block {
+      border-left: 2px solid var(--panelcolor);
+      padding-left: 1.25rem;
+      margin-bottom: 1.75rem;
+    }
+    .research-block:last-child { margin-bottom: 0; }
+
+    .member {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 2rem 1.5rem;
+      gap: 0.75rem;
+      border-radius: 1rem;
+      background: rgba(0,0,0,0.02);
+      border: 1px solid rgba(0,0,0,0.07);
+    }
+    .member-photo {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      object-fit: cover;
+      background-color: var(--backgroundcolor);
+      flex-shrink: 0;
+      border: 2px solid #b0bac9;
+    }
+    .member-role { font-size: 0.85em; opacity: 0.55; margin-top: 0.15rem; }
+    .member { transition: background-color 0.15s, border-color 0.15s; }
+    a.member:hover { background-color: rgba(0,0,0,0.04); border-color: rgba(0,0,0,0.14); }
+
+    .course {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--panelcolor);
+      gap: 1rem;
+    }
+    .course:last-child { border-bottom: none; }
+    .course-meta { font-size: 0.85em; opacity: 0.55; margin-top: 0.2rem; }
+
+    /* publications */
+    .pub-year {
+      margin-bottom: 0.5rem;
+    }
+    .pub-year summary {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      font-variant: all-small-caps;
+      font-size: 1.15em;
+      color: #1e3048;
+      opacity: 0.8;
+      cursor: pointer;
+      list-style: none;
+      padding: 0.4rem 0;
+      border-bottom: 1px solid var(--panelcolor);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      user-select: none;
+    }
+    .pub-year summary::-webkit-details-marker { display: none; }
+    .pub-year summary::after {
+      content: "▸";
+      font-size: 0.8em;
+      opacity: 0.5;
+      transition: transform 0.15s ease;
+    }
+    .pub-year[open] summary::after { transform: rotate(90deg); }
+    .pub-year[open] summary { opacity: 1; }
+    .pub-year .pub-year-content {
+      padding-top: 0.75rem;
+    }
+    .pub {
+      padding: 0.1rem 0 0.1rem 0.75rem;
+      border-left: 1px solid var(--panelcolor);
+      margin-bottom: 1.1rem;
+    }
+    .pub:last-child { margin-bottom: 0; }
+    .pub-title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: bold;
+      color: #1e3048;
+      text-decoration: none;
+      font-size: 0.95em;
+      line-height: 1.4;
+    }
+    .pub-title:hover { opacity: 0.75; }
+    .pub-authors {
+      font-size: 0.85em;
+      color: #4c5a6c;
+      margin: 0.25rem 0;
+    }
+    .team-author {
+      color: #1e3048;
+      font-weight: 600;
+    }
+    .pub-venue {
+      font-size: 0.85em;
+      color: #1e3048;
+      opacity: 0.75;
+      font-style: italic;
+    }
+    .pub-links {
+      margin-top: 0.35rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      align-items: center;
+    }
+    .pub-link {
+      font-family: 'SF Mono', 'Fira Code', Consolas, monospace;
+      font-size: 0.75em;
+      color: #1e3048;
+      opacity: 0.7;
+      text-decoration: none;
+      border: 1px solid rgba(0, 0, 0, 0.18);
+      border-radius: 0.3rem;
+      padding: 0.1em 0.5em;
+      transition: opacity 0.15s, background-color 0.15s, border-color 0.15s;
+    }
+    .pub-link:hover {
+      opacity: 1;
+      background-color: rgba(0, 0, 0, 0.05);
+      border-color: rgba(0, 0, 0, 0.3);
+    }
+    .pub-award {
+      font-size: 0.78em;
+      color: #4a85c2;
+      margin-left: 0.25rem;
+    }
+
+    .news-feed { display: flex; flex-direction: column; }
+    .news-item {
+      display: flex;
+      gap: 1.5rem;
+      padding: 0.55rem 0;
+      align-items: baseline;
+    }
+    .news-feed > * + * { border-top: 1px solid rgba(0,0,0,0.08); }
+    .news-date {
+      font-family: 'SF Mono', 'Fira Code', Consolas, monospace;
+      font-size: 0.78em;
+      color: #4a85c2;
+      white-space: nowrap;
+      width: 4.2rem;
+      flex-shrink: 0;
+    }
+    .news-text { font-size: 0.95em; line-height: 1.75; }
+    .news-earlier {
+      margin-top: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .news-earlier > summary {
+      list-style: none;
+      cursor: pointer;
+      font-family: 'SF Mono', 'Fira Code', Consolas, monospace;
+      font-size: 0;
+      color: #1e3048;
+      opacity: 0.4;
+      padding: 0.55rem 0 0 calc(4.2rem + 1.5rem);
+      transition: opacity 0.15s;
+      user-select: none;
+    }
+    .news-earlier > summary::before { content: "more"; font-size: 0.75rem; }
+    .news-earlier[open] > summary::before { content: "less"; }
+    .news-earlier > summary::-webkit-details-marker { display: none; }
+    .news-earlier > summary:hover { opacity: 0.7; }
+    .news-earlier[open] > summary { opacity: 0.6; }
+    .news-earlier .news-feed { width: 100%; margin-top: 0.5rem; }
+    .news-earlier .news-feed > * + * { border-top: 1px solid rgba(0,0,0,0.06); }
+
+    .card { scroll-margin-top: 1.5rem; }
+
+    @media (max-width: 768px) {
+      .navbar-links { display: none; }
+      .navbar { justify-content: center; }
+      .navbar-logo { padding: 0; }
+      .news-feed { max-height: none; overflow-y: visible; }
+      .team-grid-responsive { grid-template-columns: 1fr !important; }
+    }
+
+    .site-footer {
+      max-width: 1000px;
+      margin: 2.5rem auto 3.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.25rem;
+      padding: 0 1rem;
+    }
+    .footer-imprint { display: flex; justify-content: center; }
+
+    /* cite modal */
+    .cite-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,0.55); z-index: 9999;
+      align-items: center; justify-content: center;
+    }
+    .cite-overlay.active { display: flex; }
+    .cite-box {
+      background: #d6d6d6; border-radius: 1rem;
+      padding: 1.5rem 2rem; max-width: 640px; width: 90%;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+    }
+    #cite-content {
+      font-family: 'SF Mono', 'Fira Code', Consolas, monospace;
+      font-size: 0.78em; line-height: 1.6;
+      white-space: pre; overflow-x: auto;
+      color: #1e3048; background: rgba(0,0,0,0.06);
+      border-radius: 0.5rem; padding: 0.9rem 1rem;
+      margin: 0.6rem 0 0; display: block;
+      max-height: 60vh; overflow-y: auto;
+    }
+    button.pub-link { background: none; cursor: pointer; }
+    button.pub-link::-moz-focus-inner { border: 0; }
+  </style>
+</head>
+
+<body style="padding-top: 5rem;">
+
+  <!-- fixed header -->
+  <header class="site-header">
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+      <a class="navbar-logo" href="#">
+        <img style="height: 3em; margin-bottom: 5px;" src="logo.svg" alt="provsec" />
+      </a>
+      <div class="navbar-links">
+        <a class="navbar-item" href="#news">News</a>
+        <a class="navbar-item" href="#team">Team</a>
+        <a class="navbar-item" href="#publications">Publications</a>
+        <a class="navbar-item" href="#teaching">Teaching</a>
+      </div>
+    </nav>
+  </header>
+
+  <section class="section pt-3 pb-4">
+  <div class="container">
+
+    <!-- about -->
+    <div class="card" id="about">
+      <p class="section-title">Welcome to provsec@CISPA!</p>
+      <p style="font-size: 0.95em; line-height: 1.75;">
+        We are a research group at the <a href="https://cispa.de" target="_blank">CISPA Helmholtz Center for Information Security</a> in Saarbrücken, where we work on the foundations of modern cryptography through the lens of provable security. We analyze cryptographic schemes used in practice to obtain strong and concrete security guarantees, and we design new cryptographic schemes and protocols motivated by real-world applications. This often involves developing new formal models, security notions, and proof techniques.
+      </p>
+      <p style="font-size: 0.95em; line-height: 1.75; margin-top: 1rem;">
+        Our research spans a broad range of topics in applied and theoretical cryptography. In particular, we work on authenticated key exchange and secure messaging, public-key encryption and signature schemes with advanced functionalities, post-quantum cryptography, anonymous and privacy-preserving cryptographic protocols, and the theory of tight security.
+      </p>
+    </div>
+
+    <!-- news -->
+    <div class="card" id="news">
+      <p class="section-title">News</p>
+      <div class="news-feed">
+
+
+
+        <div class="news-item">
+          <span class="news-date">May 2026</span>
+          <p class="news-text">Together with <a href="https://www.simula.no/people/martijn" target="_blank">Martijn Stam</a>, <a href="https://doreenriepel.me" target="_blank">Doreen</a> organizes <a href="https://protecs-workshop.gitlab.io" target="_blank">ProTeCS</a>, a workshop on Proofs and Proof Techniques for Cryptographic Security, as an affiliated event at EUROCRYPT 2026 in Rome. We are very happy to have <a href="https://www.bartmennink.nl/" target="_blank">Bart Mennink</a> and <a href="https://web.engr.oregonstate.edu/~rosulekm/" target="_blank">Mike Rosulek</a> as invited speakers!</p>
+        </div>
+
+        <div class="news-item">
+          <span class="news-date">Apr 2026</span>
+          <p class="news-text"><a href="https://doreenriepel.me" target="_blank">Doreen</a> and <a href="https://sabrinakunzweiler.github.io/" target="_blank">Sabrina Kunzweiler</a> launch <strong style="color: #2a6fae;">PELICAN</strong> 🐦, an Équipe Associée funded by Inria to improve the provable security of isogeny-based cryptographic protocols. The funding supports mutual visits between our groups.</p>
+        </div>
+
+        <div class="news-item">
+          <span class="news-date">Mar 2026</span>
+          <p class="news-text"><a href="https://xiangyuliu-yahoo.github.io" target="_blank">Xiangyu</a> joins the PKC 2027 program committee. 📋</p>
+        </div>
+
+        <div class="news-item">
+          <span class="news-date">Feb 2026</span>
+          <p class="news-text"><a href="https://eprint.iacr.org/2025/2075" target="_blank">Leveled Isogeny Problems with Hints</a> accepted at PKC 2026 🎉 Great work Subham!</p>
+        </div>
+
+        <details class="news-earlier">
+          <summary>more</summary>
+          <div class="news-feed">
+
+            <div class="news-item">
+              <span class="news-date">Feb 2026</span>
+              <p class="news-text">Two papers accepted at EUROCRYPT 2026 🔐 — <a href="https://eprint.iacr.org/2026/434" target="_blank">Secure Cloud Storage</a> and <a href="https://eprint.iacr.org/2026/032" target="_blank">The Algebraic Isogeny Model</a>. See you in Rome!</p>
+            </div>
+
+            <div class="news-item">
+              <span class="news-date">Jan 2026</span>
+              <p class="news-text"><a href="https://doreenriepel.me" target="_blank">Doreen</a> joins the CRYPTO 2026 program committee. 📋</p>
+            </div>
+
+            <div class="news-item">
+              <span class="news-date">Sep 2025</span>
+              <p class="news-text"><a href="https://cryptosubh.github.io/" target="_blank">Subham</a> puts down roots and starts his PhD 🌱. Welcome to the team!</p>
+            </div>
+
+            <div class="news-item">
+              <span class="news-date">Jun 2025</span>
+              <p class="news-text"><a href="https://xiangyuliu-yahoo.github.io" target="_blank">Xiangyu Liu</a> joins as a Postdoc 🎊 and <a href="#team">Weidan Ji</a> joins as a remote intern. The group is growing!</p>
+            </div>
+
+            <div class="news-item">
+              <span class="news-date">May 2025</span>
+              <p class="news-text"><a href="https://eprint.iacr.org/2025/1230" target="_blank">ABE Cubed</a> accepted at CHES 2025 🛠️. A big benchmarking effort for attribute-based encryption — great collaboration with the team!</p>
+            </div>
+
+            <div class="news-item">
+              <span class="news-date">Mar 2025</span>
+              <p class="news-text">Two papers accepted at PKC 2025: <a href="https://eprint.iacr.org/2025/663" target="_blank">Intermundium-DL</a> and <a href="https://eprint.iacr.org/2024/536" target="_blank">Public-Algorithm Substitution Attacks</a>. Joint work with Mihir Bellare and Laura Shea at UCSD.</p>
+            </div>
+
+            <div class="news-item">
+              <span class="news-date">Feb 2025</span>
+              <p class="news-text"><a href="https://arxiv.org/abs/2210.09126" target="_blank">Verifiable and Provably Secure Machine Unlearning</a> will be presented at SaTML 2025 in Copenhagen 🇩🇰.</p>
+            </div>
+
+            <div class="news-item">
+              <span class="news-date">Jan 2025</span>
+              <p class="news-text">provsec is officially live at CISPA 🚀 Excited to get started!</p>
+            </div>
+
+          </div>
+        </details>
+
+      </div>
+    </div>
+
+    <!-- team -->
+    <div class="card" id="team">
+      <p class="section-title">Team</p>
+      <div class="team-grid-responsive" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; margin-top: 0.5rem;">
+        <a class="member" href="doreen.html" style="text-decoration: none; color: inherit;">
+          <img class="member-photo" src="team/doreen.jpg" alt="Doreen Riepel" />
+          <div>
+            <p style="font-family: 'Montserrat', sans-serif; font-size: 0.95em; font-weight: bold; color: #1e3048;">Dr. Doreen Riepel</p>
+            <p class="member-role">Faculty</p>
+          </div>
+        </a>
+        <a class="member" href="https://xiangyuliu-yahoo.github.io" target="_blank" style="text-decoration: none; color: inherit;">
+          <img class="member-photo" src="team/xiangyu.jpg" alt="Xiangyu Liu" />
+          <div>
+            <p style="font-family: 'Montserrat', sans-serif; font-size: 0.95em; font-weight: bold; color: #1e3048;">Dr. Xiangyu Liu</p>
+            <p class="member-role">Postdoc</p>
+          </div>
+        </a>
+        <a class="member" href="https://cryptosubh.github.io/" target="_blank" style="text-decoration: none; color: inherit;">
+          <img class="member-photo" src="team/subham.jpg" alt="Subham Das" />
+          <div>
+            <p style="font-family: 'Montserrat', sans-serif; font-size: 0.95em; font-weight: bold; color: #1e3048;">Subham Das</p>
+            <p class="member-role">PhD Student</p>
+          </div>
+        </a>
+      </div>
+
+      <details class="pub-year" style="margin-top: 1.5rem;">
+        <summary>Visitors</summary>
+        <div class="pub-year-content">
+          <div style="display: flex; flex-direction: column; gap: 0.4rem;">
+            <p style="font-size: 0.9em;">
+              <a href="https://uwaterloo.ca/math/profiles/camryn-steckel" target="_blank">Camryn Steckel</a>
+              <span style="opacity: 0.55; font-size: 0.9em;"> — Aug 2026</span>
+            </p>
+            <p style="font-size: 0.9em;">
+              <a href="https://orbit.dtu.dk/en/persons/marvin-beckmann/" target="_blank">Marvin Beckmann</a>
+              <span style="opacity: 0.55; font-size: 0.9em;"> — Jul 2026</span>
+            </p>
+            <p style="font-size: 0.9em;">
+              <a href="https://houbenmr.github.io/" target="_blank">Marc Houben</a>, <a href="https://sabrinakunzweiler.github.io/" target="_blank">Sabrina Kunzweiler</a>
+              <span style="opacity: 0.55; font-size: 0.9em;"> — Jun 2026</span>
+            </p>
+            <p style="font-size: 0.9em;">
+              <a href="https://hans.heum.me" target="_blank">Hans Heum</a>
+              <span style="opacity: 0.55; font-size: 0.9em;"> — Nov 2025</span>
+            </p>
+            <p style="font-size: 0.9em;">
+              <a href="https://www.roeslpa.de" target="_blank">Paul Rösler</a>, <a href="https://www.chaac.tf.fau.eu/person/lea-thiemt/" target="_blank">Lea Thiemt</a>
+              <span style="opacity: 0.55; font-size: 0.9em;"> — Mar 2025</span>
+            </p>
+            <p style="font-size: 0.9em;">
+              <a href="https://jonasjanneck.org" target="_blank">Jonas Janneck</a>, <a href="https://meers.org" target="_blank">Jonas Meers</a>
+              <span style="opacity: 0.55; font-size: 0.9em;"> — Feb 2025</span>
+            </p>
+          </div>
+        </div>
+      </details>
+
+      <details class="pub-year" style="margin-top: 0.5rem;">
+        <summary>Alumni</summary>
+        <div class="pub-year-content">
+          <div style="display: flex; flex-direction: column; gap: 0.4rem;">
+            <p style="font-size: 0.9em;">
+              Weidan Ji
+              <span style="opacity: 0.55; font-size: 0.9em;"> — Remote Intern, Jun–Dec 2025</span>
+            </p>
+            <p style="font-size: 0.9em;">
+              <a href="https://agnidatta.com" target="_blank">Agni Datta</a>
+              <span style="opacity: 0.55; font-size: 0.9em;"> — Intern, Jun–Aug 2025</span>
+            </p>
+          </div>
+        </div>
+      </details>
+    </div>
+
+    <!-- publications -->
+    <div class="card" id="publications">
+      <p class="section-title">Publications</p>
+
+      <!-- preprints -->
+      <details class="pub-year">
+        <summary>Preprints</summary>
+        <div class="pub-year-content">
+
+          <div class="pub">
+            <a class="pub-title" href="https://eprint.iacr.org/2025/1474" target="_blank">Snake Mackerel: An Isogeny-Based AKEM Leveraging Randomness Reuse</a>
+            <p class="pub-authors">Jonas Janneck, Jonas Meers, Massimo Ostuzzi, Doreen Riepel</p>
+            <p class="pub-venue">IACR Cryptology ePrint Archive, 2025</p>
+            <div class="pub-links">
+              <a class="pub-link" href="https://eprint.iacr.org/2025/1474" target="_blank">ePrint</a>
+            </div>
+          </div>
+
+          <div class="pub">
+            <a class="pub-title" href="https://eprint.iacr.org/2025/1807" target="_blank">Traceable Ring Signatures Revisited: Extended Definitions, O(1) Tracing, and Efficient Log-Size Constructions</a>
+            <p class="pub-authors">Xiangyu Liu</p>
+            <p class="pub-venue">IACR Cryptology ePrint Archive, 2025</p>
+            <div class="pub-links">
+              <a class="pub-link" href="https://eprint.iacr.org/2025/1807" target="_blank">ePrint</a>
+            </div>
+          </div>
+
+          <div class="pub">
+            <a class="pub-title" href="https://eprint.iacr.org/2025/243" target="_blank">K-Linkable Ring Signatures and Applications in Generalized Voting</a>
+            <p class="pub-authors">Wonseok Choi, Xiangyu Liu, Yanxin Pang, Lirong Xia, Vassilis Zikas</p>
+            <p class="pub-venue">IACR Cryptology ePrint Archive, 2025</p>
+            <div class="pub-links">
+              <a class="pub-link" href="https://eprint.iacr.org/2025/243" target="_blank">ePrint</a>
+            </div>
+          </div>
+
+        </div>
+      </details>
+
+      <!-- 2026 -->
+      <details class="pub-year" open>
+        <summary>2026</summary>
+        <div class="pub-year-content">
+
+          <div class="pub">
+            <a class="pub-title" href="https://eprint.iacr.org/2025/365" target="_blank">Lattice-Based Updatable KEM for Group Messaging</a>
+            <p class="pub-authors">Joël Alwen, Georg Fuchsbauer, Marta Mularczyk, Doreen Riepel</p>
+            <p class="pub-venue">Annual International Cryptology Conference (CRYPTO)</p>
+            <div class="pub-links">
+              <a class="pub-link" href="https://eprint.iacr.org/2025/365" target="_blank">ePrint</a>
+            </div>
+          </div>
+
+          <div class="pub">
+            <a class="pub-title" href="https://eprint.iacr.org/2025/309" target="_blank">A Unified Treatment of Anamorphic Encryption</a>
+            <p class="pub-authors">Wonseok Choi, Daniel Collins, Xiangyu Liu, Roy Stracovsky, Vassilis Zikas</p>
+            <p class="pub-venue">Annual International Cryptology Conference (CRYPTO)</p>
+            <div class="pub-links">
+              <a class="pub-link" href="https://eprint.iacr.org/2025/309" target="_blank">ePrint</a>
+            </div>
+          </div>
+
+          <div class="pub">
+            <a class="pub-title" href="https://eprint.iacr.org/2025/2075" target="_blank">Leveled Isogeny Problems with Hints</a>
+            <p class="pub-authors">Subham Das, Riccardo Invernizzi, Péter Kutas, Jonas Meers</p>
+            <p class="pub-venue">IACR International Conference on Practice and Theory of Public-Key Cryptography (PKC)</p>
+            <div class="pub-links">
+              <a class="pub-link" href="https://eprint.iacr.org/2025/2075" target="_blank">ePrint</a>
+            </div>
+          </div>
+
+          <div class="pub">
+            <a class="pub-title" href="https://eprint.iacr.org/2026/434" target="_blank">Secure Cloud Storage: Modularization, Network Adversaries and Adaptive Corruptions</a>
+            <p class="pub-authors">Jonas Janneck, Doreen Riepel</p>
+            <p class="pub-venue">Annual International Conference on the Theory and Applications of Cryptographic Techniques (EUROCRYPT)</p>
+            <div class="pub-links">
+              <a class="pub-link" href="https://eprint.iacr.org/2026/434" target="_blank">ePrint</a>
+            </div>
+          </div>
+
+          <div class="pub">
+            <a class="pub-title" href="https://eprint.iacr.org/2026/032" target="_blank">The Algebraic Isogeny Model: A General Model with Applications to SQIsign and Key Exchanges</a>
+            <p class="pub-authors">Marius A. Aardal, Andrea Basso, Doreen Riepel</p>
+            <p class="pub-venue">Annual International Conference on the Theory and Applications of Cryptographic Techniques (EUROCRYPT)</p>
+            <div class="pub-links">
+              <a class="pub-link" href="https://eprint.iacr.org/2026/032" target="_blank">ePrint</a>
+            </div>
+          </div>
+
+        </div>
+      </details>
+
+      <!-- 2025 -->
+      <details class="pub-year">
+        <summary>2025</summary>
+        <div class="pub-year-content">
+
+          <div class="pub">
+            <a class="pub-title" href="https://eprint.iacr.org/2025/1986" target="_blank">Anonymous Authentication and Key Agreement, Revisited</a>
+            <p class="pub-authors">Yanqi Zhao, Xiangyu Liu, Min Xie, Xiaoyi Yang, Jianting Ning, Baodong Qin, Haibin Zhang, Yong Yu</p>
+            <p class="pub-venue">Annual Computer Security Applications Conference (ACSAC)</p>
+            <div class="pub-links">
+              <a class="pub-link" href="https://eprint.iacr.org/2025/1986" target="_blank">ePrint</a>
+            </div>
+          </div>
+
+          <div class="pub">
+            <a class="pub-title" href="https://eprint.iacr.org/2023/1881" target="_blank">Blockchain Governance via Sharp Anonymous Multisignatures</a>
+            <p class="pub-authors">Wonseok Choi, Xiangyu Liu, Vassilis Zikas</p>
+            <p class="pub-venue">ACM Conference on Advances in Financial Technologies (AFT)</p>
+            <div class="pub-links">
+              <a class="pub-link" href="https://eprint.iacr.org/2023/1881" target="_blank">ePrint</a>
+            </div>
+          </div>
+
+          <div class="pub">
+            <a class="pub-title" href="https://eprint.iacr.org/2025/1230" target="_blank">ABE Cubed: Advanced Benchmarking Extensions for ABE Squared</a>
+            <p class="pub-authors">Sven Argo, Marloes Venema, Doreen Riepel, Tim Güneysu, Diego F. Aranha</p>
+            <p class="pub-venue">IACR Transactions on Cryptographic Hardware and Embedded Systems (CHES)</p>
+            <div class="pub-links">
+              <a class="pub-link" href="https://eprint.iacr.org/2025/1230" target="_blank">ePrint</a>
+              <a class="pub-link" href="https://github.com/lincolncryptools/ABE_Cubed" target="_blank">code</a>
+            </div>
+          </div>
+
+          <div class="pub">
+            <a class="pub-title" href="https://eprint.iacr.org/2025/663" target="_blank">Intermundium-DL: Assessing the Resilience of Current Schemes to Discrete-Log-Computation Attacks on Public Parameters</a>
+            <p class="pub-authors">Mihir Bellare, Doreen Riepel, Laura Shea</p>
+            <p class="pub-venue">IACR International Conference on Practice and Theory of Public-Key Cryptography (PKC)</p>
+            <div class="pub-links">
+              <a class="pub-link" href="https://eprint.iacr.org/2025/663" target="_blank">ePrint</a>
+            </div>
+          </div>
+
+          <div class="pub">
+            <a class="pub-title" href="https://eprint.iacr.org/2024/536" target="_blank">Public-Algorithm Substitution Attacks: Subverting Hashing and Verification</a>
+            <p class="pub-authors">Mihir Bellare, Doreen Riepel, Laura Shea</p>
+            <p class="pub-venue">IACR International Conference on Practice and Theory of Public-Key Cryptography (PKC)</p>
+            <div class="pub-links">
+              <a class="pub-link" href="https://eprint.iacr.org/2024/536" target="_blank">ePrint</a>
+            </div>
+          </div>
+
+          <div class="pub">
+            <a class="pub-title" href="https://eprint.iacr.org/2024/1773" target="_blank">Universal Adaptor Signatures from Blackbox Multi-Party Computation</a>
+            <p class="pub-authors">Michele Ciampi, Xiangyu Liu, Ioannis Tzannetos, Vassilis Zikas</p>
+            <p class="pub-venue">Topics in Cryptology – CT-RSA</p>
+            <div class="pub-links">
+              <a class="pub-link" href="https://eprint.iacr.org/2024/1773" target="_blank">ePrint</a>
+            </div>
+          </div>
+
+          <div class="pub">
+            <a class="pub-title" href="https://arxiv.org/abs/2210.09126" target="_blank">Verifiable and Provably Secure Machine Unlearning</a>
+            <p class="pub-authors">Thorsten Eisenhofer, Doreen Riepel, Varun Chandrasekaran, Esha Ghosh, Olga Ohrimenko, Nicolas Papernot</p>
+            <p class="pub-venue">IEEE Conference on Secure and Trustworthy Machine Learning (SaTML)</p>
+            <div class="pub-links">
+              <a class="pub-link" href="https://arxiv.org/abs/2210.09126" target="_blank">arxiv</a>
+              <a class="pub-link" href="https://github.com/cleverhans-lab/verifiable-unlearning" target="_blank">code</a>
+            </div>
+          </div>
+
+
+        </div>
+      </details>
+
+      <!-- 2024 -->
+      <details class="pub-year">
+        <summary>2024</summary>
+        <div class="pub-year-content">
+
+          <div class="pub">
+            <a class="pub-title" href="#" target="_blank">The Concrete Security of Two-Party Computation: Simple Definitions, and Tight Proofs for PSI and OPRFs</a>
+            <p class="pub-authors">Mihir Bellare, Doreen Riepel, Rishabh Ranjan, Ali Aldakheel</p>
+            <p class="pub-venue">International Conference on the Theory and Application of Cryptology and Information Security (ASIACRYPT)</p>
+            <div class="pub-links">
+              <a class="pub-link" href="https://eprint.iacr.org/2024/1264" target="_blank">ePrint</a>
+            </div>
+          </div>
+
+          <div class="pub">
+            <a class="pub-title" href="#" target="_blank">Count Corruptions, Not Users: Improved Tightness for Signatures, Encryption and Authenticated Key Exchange</a>
+            <p class="pub-authors">Mihir Bellare, Doreen Riepel, Stefano Tessaro, Yizhao Zhang</p>
+            <p class="pub-venue">International Conference on the Theory and Application of Cryptology and Information Security (ASIACRYPT)</p>
+            <div class="pub-links">
+              <a class="pub-link" href="https://eprint.iacr.org/2024/803" target="_blank">ePrint</a>
+            </div>
+          </div>
+
+          <div class="pub">
+            <a class="pub-title" href="#" target="_blank">Tightly-Secure Group Key Exchange with Perfect Forward Secrecy</a>
+            <p class="pub-authors">Emanuele Di Giandomenico, Doreen Riepel, Sven Schäge</p>
+            <p class="pub-venue">International Conference on the Theory and Application of Cryptology and Information Security (ASIACRYPT)</p>
+            <div class="pub-links">
+              <a class="pub-link" href="https://eprint.iacr.org/2024/1231" target="_blank">ePrint</a>
+            </div>
+          </div>
+
+          <div class="pub">
+            <a class="pub-title" href="#" target="_blank">On the Tight Security of the Double Ratchet</a>
+            <p class="pub-authors">Daniel Collins, Doreen Riepel, Si An Oliver Tran</p>
+            <p class="pub-venue">ACM Conference on Computer and Communications Security (CCS)</p>
+            <div class="pub-links">
+              <a class="pub-link" href="https://eprint.iacr.org/2024/1350" target="_blank">ePrint</a>
+            </div>
+          </div>
+
+          <div class="pub">
+            <a class="pub-title" href="#" target="_blank">ISABELLA: Improving Structures of Attribute-Based Encryption Leveraging Linear Algebra</a>
+            <p class="pub-authors">Doreen Riepel, Marloes Venema, Tanya Verma</p>
+            <p class="pub-venue">ACM Conference on Computer and Communications Security (CCS)</p>
+            <div class="pub-links">
+              <a class="pub-link" href="https://eprint.iacr.org/2023/143" target="_blank">ePrint</a>
+            </div>
+          </div>
+
+          <div class="pub">
+            <a class="pub-title" href="#" target="_blank">Key Exchange with Tight (Full) Forward Secrecy via Key Confirmation</a>
+            <p class="pub-authors">Jiaxin Pan, Doreen Riepel, Runzhi Zeng</p>
+            <p class="pub-venue">Annual International Conference on the Theory and Applications of Cryptographic Techniques (EUROCRYPT)</p>
+            <div class="pub-links">
+              <a class="pub-link" href="https://eprint.iacr.org/2023/1784" target="_blank">ePrint</a>
+            </div>
+          </div>
+
+          <div class="pub">
+            <a class="pub-title" href="#" target="_blank">CCA Secure Updatable Encryption from Non-Mappable Group Actions</a>
+            <p class="pub-authors">Jonas Meers, Doreen Riepel</p>
+            <p class="pub-venue">Post-Quantum Cryptography (PQCrypto)</p>
+            <div class="pub-links">
+              <a class="pub-link" href="https://eprint.iacr.org/2023/1796" target="_blank">ePrint</a>
+            </div>
+          </div>
+
+          <div class="pub">
+            <a class="pub-title" href="https://eprint.iacr.org/2024/1051" target="_blank">Adaptor Signatures: New Security Definition and A Generic Construction for NP Relations</a>
+            <p class="pub-authors">Xiangyu Liu, Ioannis Tzannetos, Vassilis Zikas</p>
+            <p class="pub-venue">International Conference on the Theory and Application of Cryptology and Information Security (ASIACRYPT)</p>
+            <div class="pub-links">
+              <a class="pub-link" href="https://eprint.iacr.org/2024/1051" target="_blank">ePrint</a>
+            </div>
+          </div>
+
+        </div>
+      </details>
+
+      <!-- 2023 -->
+      <details class="pub-year">
+        <summary>2023</summary>
+        <div class="pub-year-content">
+
+          <div class="pub">
+            <a class="pub-title" href="https://doreenriepel.me" target="_blank">Tightly-Secure Authenticated Key Exchange</a>
+            <p class="pub-authors">Doreen Riepel</p>
+            <p class="pub-venue">PhD Thesis, Ruhr University Bochum</p>
+            <div class="pub-links">
+              <a class="pub-link" href="https://doreenriepel.me/uploads/phd-thesis-doreen-riepel.pdf" target="_blank">pdf</a>
+            </div>
+          </div>
+
+          <div class="pub">
+            <a class="pub-title" href="#" target="_blank">Multi-User CDH Problems and the Concrete Security of NAXOS and HMQV</a>
+            <p class="pub-authors">Eike Kiltz, Jiaxin Pan, Magnus Ringerud, Doreen Riepel</p>
+            <p class="pub-venue">Topics in Cryptology – CT-RSA</p>
+            <div class="pub-links">
+              <a class="pub-link" href="https://eprint.iacr.org/2022/882" target="_blank">ePrint</a>
+            </div>
+          </div>
+
+          <div class="pub">
+            <a class="pub-title" href="#" target="_blank">Generic Models for Group Actions</a>
+            <p class="pub-authors">Julien Duman, Dominik Hartmann, Eike Kiltz, Sabrina Kunzweiler, Jonas Lehmann, Doreen Riepel</p>
+            <p class="pub-venue">IACR International Conference on Practice and Theory of Public-Key Cryptography (PKC)</p>
+            <div class="pub-links">
+              <a class="pub-link" href="https://eprint.iacr.org/2022/1466" target="_blank">ePrint</a>
+            </div>
+          </div>
+
+          <div class="pub">
+            <a class="pub-title" href="https://arxiv.org/abs/2303.14443" target="_blank">No More Reviewer #2: Subverting Automatic Paper-Reviewer Assignment using Adversarial Learning</a>
+            <p class="pub-authors">Thorsten Eisenhofer, Erwin Quiring, Jonas Möller, Doreen Riepel, Thorsten Holz, Konrad Rieck</p>
+            <p class="pub-venue">USENIX Security Symposium</p>
+            <div class="pub-links">
+              <a class="pub-link" href="https://arxiv.org/abs/2303.14443" target="_blank">arxiv</a>
+              <a class="pub-link" href="https://github.com/rub-syssec/adversarial-papers" target="_blank">code</a>
+            </div>
+          </div>
+
+          <div class="pub">
+            <a class="pub-title" href="https://eprint.iacr.org/2023/170" target="_blank">EKE Meets Tight Security in the Universally Composable Framework</a>
+            <p class="pub-authors">Xiangyu Liu, Shengli Liu, Shuai Han, Dawu Gu</p>
+            <p class="pub-venue">IACR International Conference on Practice and Theory of Public-Key Cryptography (PKC)</p>
+            <div class="pub-links">
+              <a class="pub-link" href="https://eprint.iacr.org/2023/170" target="_blank">ePrint</a>
+            </div>
+          </div>
+
+          <div class="pub">
+            <a class="pub-title" href="#" target="_blank">Fine-Grained Verifier NIZK and Its Applications</a>
+            <p class="pub-authors">Xiangyu Liu, Shengli Liu, Shuai Han, Dawu Gu</p>
+            <p class="pub-venue">IACR International Conference on Practice and Theory of Public-Key Cryptography (PKC)</p>
+          </div>
+
+        </div>
+      </details>
+
+      <!-- 2022 -->
+      <details class="pub-year">
+        <summary>2022</summary>
+        <div class="pub-year-content">
+
+          <div class="pub">
+            <a class="pub-title" href="#" target="_blank">Strongly Anonymous Ratcheted Key Exchange</a>
+            <p class="pub-authors">Benjamin Dowling, Eduard Hauck, Doreen Riepel, Paul Rösler</p>
+            <p class="pub-venue">International Conference on the Theory and Application of Cryptology and Information Security (ASIACRYPT)</p>
+            <div class="pub-links">
+              <a class="pub-link" href="https://eprint.iacr.org/2021/1426" target="_blank">ePrint</a>
+            </div>
+          </div>
+
+          <div class="pub">
+            <a class="pub-title" href="#" target="_blank">Group Action Key Encapsulation and Non-Interactive Key Exchange in the QROM</a>
+            <p class="pub-authors">Julien Duman, Dominik Hartmann, Eike Kiltz, Sabrina Kunzweiler, Jonas Lehmann, Doreen Riepel</p>
+            <p class="pub-venue">International Conference on the Theory and Application of Cryptology and Information Security (ASIACRYPT)</p>
+            <div class="pub-links">
+              <a class="pub-link" href="https://eprint.iacr.org/2022/1238" target="_blank">ePrint</a>
+            </div>
+          </div>
+
+          <div class="pub">
+            <a class="pub-title" href="#" target="_blank">FABEO: Fast Attribute-Based Encryption with Optimal Security</a>
+            <p class="pub-authors">Doreen Riepel, Hoeteck Wee</p>
+            <p class="pub-venue">ACM Conference on Computer and Communications Security (CCS)</p>
+            <div class="pub-links">
+              <a class="pub-link" href="https://eprint.iacr.org/2022/1286" target="_blank">ePrint</a>
+            </div>
+          </div>
+
+          <div class="pub">
+            <a class="pub-title" href="https://eprint.iacr.org/2022/117" target="_blank">Password-Authenticated Key Exchange from Group Actions</a>
+            <p class="pub-authors">Michel Abdalla, Thorsten Eisenhofer, Eike Kiltz, Sabrina Kunzweiler, Doreen Riepel</p>
+            <p class="pub-venue">Annual International Cryptology Conference (CRYPTO)</p>
+            <div class="pub-links">
+              <a class="pub-link" href="https://eprint.iacr.org/2022/117" target="_blank">ePrint</a>
+            </div>
+          </div>
+
+          <div class="pub">
+            <a class="pub-title" href="https://www.sciencedirect.com/science/article/abs/pii/S0304397521006009" target="_blank">Tightly CCA-Secure Inner Product Functional Encryption Scheme</a>
+            <p class="pub-authors">Xiangyu Liu, Shengli Liu, Dawu Gu</p>
+            <p class="pub-venue">Theoretical Computer Science (TCS)</p>
+          </div>
+
+        </div>
+      </details>
+
+      <!-- 2021 -->
+      <details class="pub-year">
+        <summary>2021</summary>
+        <div class="pub-year-content">
+
+          <div class="pub">
+            <a class="pub-title" href="#" target="_blank">Authenticated Key Exchange and Signatures with Tight Security in the Standard Model</a>
+            <p class="pub-authors">Shuai Han, Tibor Jager, Eike Kiltz, Shengli Liu, Jiaxin Pan, Doreen Riepel, Sven Schäge</p>
+            <p class="pub-venue">Annual International Cryptology Conference (CRYPTO)</p>
+            <div class="pub-links">
+              <a class="pub-link" href="https://eprint.iacr.org/2021/756" target="_blank">ePrint</a>
+            </div>
+          </div>
+
+          <div class="pub">
+            <a class="pub-title" href="https://eprint.iacr.org/2020/1499" target="_blank">Analysing the HPKE Standard</a>
+            <p class="pub-authors">Joël Alwen, Bruno Blanchet, Eduard Hauck, Eike Kiltz, Benjamin Lipp, Doreen Riepel</p>
+            <p class="pub-venue">Annual International Conference on the Theory and Applications of Cryptographic Techniques (EUROCRYPT)</p>
+            <div class="pub-links">
+              <a class="pub-link" href="https://eprint.iacr.org/2020/1499" target="_blank">ePrint</a>
+            </div>
+          </div>
+
+          <div class="pub">
+            <a class="pub-title" href="https://eprint.iacr.org/2021/205" target="_blank">Tightly-Secure Authenticated Key Exchange, Revisited</a>
+            <p class="pub-authors">Tibor Jager, Eike Kiltz, Doreen Riepel, Sven Schäge</p>
+            <p class="pub-venue">Annual International Conference on the Theory and Applications of Cryptographic Techniques (EUROCRYPT)</p>
+            <div class="pub-links">
+              <a class="pub-link" href="https://eprint.iacr.org/2021/205" target="_blank">ePrint</a>
+            </div>
+          </div>
+
+          <div class="pub">
+            <a class="pub-title" href="#" target="_blank">Tightly Secure Identity-Based Signature Scheme</a>
+            <p class="pub-authors">Xiangyu Liu, Shengli Liu, Dawu Gu</p>
+            <p class="pub-venue">Journal of Cryptologic Research</p>
+          </div>
+
+        </div>
+      </details>
+
+      <!-- 2020 -->
+      <details class="pub-year">
+        <summary>2020</summary>
+        <div class="pub-year-content">
+
+          <div class="pub">
+            <a class="pub-title" href="https://eprint.iacr.org/2020/1088" target="_blank">Two-Pass Authenticated Key Exchange with Explicit Authentication and Tight Security</a>
+            <p class="pub-authors">Xiangyu Liu, Shengli Liu, Dawu Gu, Jian Weng</p>
+            <p class="pub-venue">International Conference on the Theory and Application of Cryptology and Information Security (ASIACRYPT)</p>
+            <div class="pub-links">
+              <a class="pub-link" href="https://eprint.iacr.org/2020/1088" target="_blank">ePrint</a>
+            </div>
+          </div>
+
+          <div class="pub">
+            <a class="pub-title" href="https://eprint.iacr.org/2022/1258" target="_blank">Tightly Secure Chameleon Hash Functions in the Multi-User Setting and Their Applications</a>
+            <p class="pub-authors">Xiangyu Liu, Shengli Liu, Dawu Gu</p>
+            <p class="pub-venue">Australasian Conference on Information Security and Privacy (ACISP)</p>
+            <div class="pub-links">
+              <a class="pub-link" href="https://eprint.iacr.org/2022/1258" target="_blank">ePrint</a>
+            </div>
+          </div>
+
+        </div>
+      </details>
+
+      <!-- 2019 -->
+      <details class="pub-year">
+        <summary>2019</summary>
+        <div class="pub-year-content">
+
+          <div class="pub">
+            <a class="pub-title" href="#" target="_blank">A Dynamic Searchable Encryption Scheme on Cloud Storage with Multi-level Access</a>
+            <p class="pub-authors">Xiangyu Liu, Huige Li, Fangguo Zhang</p>
+            <p class="pub-venue">Journal of Cryptologic Research</p>
+          </div>
+
+        </div>
+      </details>
+
+    </div>
+
+    <!-- teaching -->
+    <div class="card" id="teaching">
+      <p class="section-title">Teaching</p>
+
+      <!-- current -->
+      <div style="border-left: 1px solid var(--panelcolor); padding: 0.25rem 0 0.25rem 0.75rem; margin-bottom: 0.75rem;">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 0.5rem;">
+          <div>
+            <p style="font-family: 'Montserrat', sans-serif; font-size: 0.95em; font-weight: bold; color: #1e3048;">
+              Theoretical Foundations of Applied Cryptography
+            </p>
+            <p class="course-meta" style="margin-top: 0.25rem;">Course · Master · Summer 2026 · Leibniz University Hannover (LUH)</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="border-left: 1px solid var(--panelcolor); padding: 0.25rem 0 0.25rem 0.75rem; margin-bottom: 0.75rem;">
+        <p style="font-family: 'Montserrat', sans-serif; font-size: 0.95em; font-weight: bold; color: #1e3048;">Cryptographic Foundations of Secure Messaging</p>
+        <p class="course-meta" style="margin-top: 0.25rem;">Seminar · Master · Winter 2025/2026 · Leibniz University Hannover (LUH)</p>
+      </div>
+
+      <div style="border-left: 1px solid var(--panelcolor); padding: 0.25rem 0 0.25rem 0.75rem; margin-bottom: 0;">
+        <p style="font-family: 'Montserrat', sans-serif; font-size: 0.95em; font-weight: bold; color: #1e3048;">Provable Security of Key Exchange Protocols</p>
+        <p class="course-meta" style="margin-top: 0.25rem;">Seminar · Master · Summer 2025 · Saarland University (UdS)</p>
+      </div>
+
+    </div>
+
+
+  </div>
+  </section>
+
+  <footer style="background: #1e3048; padding: 2rem 1rem; margin-top: 2.5rem;">
+    <div style="max-width: 1000px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
+      <img src="logo.svg" style="height: 3em; display: block;" alt="provsec" />
+      <p style="font-family: 'Montserrat', sans-serif; font-size: 0.75em; color: rgba(255,255,255,0.5); letter-spacing: 0.05em;">proving security, one reduction at a time</p>
+    </div>
+    <div class="footer-imprint" style="margin-top: 1.5rem;">
+      <a href="/imprint.html" style="color: rgba(255,255,255,0.35); text-decoration: none; font-family: 'Montserrat', sans-serif; font-size: 0.72em;">Imprint</a>
+    </div>
+  </footer>
+
+  <!-- cite modal -->
+  <div class="cite-overlay" id="cite-overlay">
+    <div class="cite-box">
+      <p style="font-family:'Montserrat',sans-serif;font-weight:600;font-size:0.85em;color:#1e3048;">BibTeX</p>
+      <pre id="cite-content"></pre>
+      <div style="display:flex;justify-content:flex-end;gap:0.5rem;margin-top:0.75rem;">
+        <button class="pub-link" id="cite-copy">copy</button>
+        <button class="pub-link" onclick="document.getElementById('cite-overlay').classList.remove('active')">close</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ── BibTeX data ─────────────────────────────────────────────────
+    const bibByEprint = {
+      '2025/365': `@InProceedings{CRYPTO:AFMR25,
+  author    = {Joël Alwen and Georg Fuchsbauer and Marta Mularczyk and Doreen Riepel},
+  title     = {Lattice-{B}ased {U}pdatable {P}ublic-{K}ey {E}ncryption for {G}roup {M}essaging},
+  booktitle = {{CRYPTO} 2026},
+  month     = aug,
+  publisher = {Springer, Heidelberg},
+  series    = {{LNCS}},
+  year      = {2026}
+}`,
+      '2026/434': `@InProceedings{EC:JanRie26,
+  author    = {Jonas Janneck and Doreen Riepel},
+  title     = {Secure {C}loud {S}torage: {M}odularization, {N}etwork {A}dversaries and {A}daptive {C}orruptions},
+  booktitle = {{EUROCRYPT} 2026},
+  month     = may,
+  publisher = {Springer, Heidelberg},
+  series    = {{LNCS}},
+  year      = {2026}
+}`,
+      '2026/032': `@InProceedings{EC:AarBasRie26,
+  author    = {Marius A. Aardal and Andrea Basso and Doreen Riepel},
+  title     = {The {A}lgebraic {I}sogeny {M}odel: {A} {G}eneral {M}odel with {A}pplications to {SQIsign} and {K}ey {E}xchanges},
+  booktitle = {{EUROCRYPT} 2026},
+  month     = may,
+  publisher = {Springer, Heidelberg},
+  series    = {{LNCS}},
+  year      = {2026}
+}`,
+      '2025/309': `@InProceedings{CRYPTO:CCLSZ26,
+  author    = {Wonseok Choi and Daniel Collins and Xiangyu Liu and Roy Stracovsky and Vassilis Zikas},
+  title     = {A Unified Treatment of Anamorphic Encryption},
+  booktitle = {{CRYPTO} 2026},
+  month     = aug,
+  publisher = {Springer, Heidelberg},
+  series    = {{LNCS}},
+  year      = {2026}
+}`,
+      '2025/2075': `@InProceedings{PKC:DIKM26,
+  author    = {Subham Das and Riccardo Invernizzi and Péter Kutas and Jonas Meers},
+  title     = {Leveled Isogeny Problems with Hints},
+  booktitle = {{PKC} 2026},
+  publisher = {Springer, Heidelberg},
+  series    = {{LNCS}},
+  year      = {2026}
+}`,
+      '2025/1474': `@misc{EPRINT:JMOR25,
+  author       = {Jonas Janneck and Jonas Meers and Massimo Ostuzzi and Doreen Riepel},
+  title        = {Snake {M}ackerel: {A}n {I}sogeny-{B}ased {AKEM} {L}everaging {R}andomness {R}euse},
+  howpublished = {Cryptology {ePrint} Archive, Paper 2025/1474},
+  year         = {2025},
+  url          = {https://eprint.iacr.org/2025/1474}
+}`,
+      '2025/1807': `@misc{cryptoeprint:2025/1807,
+  author       = {Xiangyu Liu},
+  title        = {Traceable Ring Signatures Revisited: Extended Definitions, O(1) Tracing, and Efficient Log-Size Constructions},
+  howpublished = {Cryptology {ePrint} Archive, Paper 2025/1807},
+  year         = {2025},
+  url          = {https://eprint.iacr.org/2025/1807}
+}`,
+      '2025/243': `@misc{cryptoeprint:2025/243,
+  author       = {Wonseok Choi and Xiangyu Liu and Yanxin Pang and Lirong Xia and Vassilis Zikas},
+  title        = {K-Linkable Ring Signatures and Applications in Generalized Voting},
+  howpublished = {Cryptology {ePrint} Archive, Paper 2025/243},
+  year         = {2025},
+  url          = {https://eprint.iacr.org/2025/243}
+}`,
+      '2025/1986': `@InProceedings{ACSAC:ZLXYNNQHZY25,
+  author    = {Yanqi Zhao and Xiangyu Liu and Min Xie and Xiaoyi Yang and Jianting Ning and Baodong Qin and Haibin Zhang and Yong Yu},
+  title     = {Anonymous Authentication and Key Agreement, Revisited},
+  booktitle = {{ACSAC} 2025},
+  month     = dec,
+  year      = {2025}
+}`,
+      '2023/1881': `@InProceedings{AFT:CLZ25,
+  author    = {Wonseok Choi and Xiangyu Liu and Vassilis Zikas},
+  title     = {Blockchain Governance via Sharp Anonymous Multisignatures},
+  booktitle = {{AFT} 2025},
+  month     = oct,
+  year      = {2025}
+}`,
+      '2025/1230': `@Article{TCHES:AVRGA25,
+  author    = {Sven Argo and Marloes Venema and Doreen Riepel and Tim Güneysu and Diego F. Aranha},
+  title     = {{ABE} {C}ubed: {A}dvanced {B}enchmarking {E}xtensions for {ABE} {S}quared},
+  journal   = {{IACR} {TCHES}},
+  volume    = {2025},
+  number    = {4},
+  pages     = {544--587},
+  year      = {2025},
+  publisher = {Ruhr-Universität Bochum},
+  doi       = {10.46586/tches.v2025.i4.544-587}
+}`,
+      '2025/663': `@InProceedings{PKC:BelRieShe24b,
+  author    = {Mihir Bellare and Doreen Riepel and Laura Shea},
+  title     = {Intermundium-{DL}: {A}ssessing the {R}esilience of {C}urrent {S}chemes to {D}iscrete-{L}og-{C}omputation {A}ttacks on {P}ublic {P}arameters},
+  booktitle = {{PKC} 2025},
+  publisher = {Springer, Heidelberg},
+  series    = {{LNCS}},
+  year      = {2025}
+}`,
+      '2024/536': `@InProceedings{PKC:BelRieShe24a,
+  author    = {Mihir Bellare and Doreen Riepel and Laura Shea},
+  title     = {Public-{A}lgorithm {S}ubstitution {A}ttacks: {S}ubverting {H}ashing and {V}erification},
+  booktitle = {{PKC} 2025},
+  publisher = {Springer, Heidelberg},
+  series    = {{LNCS}},
+  year      = {2025}
+}`,
+      '2024/1773': `@InProceedings{CTRSA:CLTZ25,
+  author    = {Michele Ciampi and Xiangyu Liu and Ioannis Tzannetos and Vassilis Zikas},
+  title     = {Universal Adaptor Signatures from Blackbox Multi-Party Computation},
+  booktitle = {{CT-RSA} 2025},
+  publisher = {Springer, Heidelberg},
+  series    = {{LNCS}},
+  year      = {2025}
+}`,
+      '2024/1264': `@InProceedings{AC:BRRA24,
+  author    = {Mihir Bellare and Doreen Riepel and Rishabh Ranjan and Ali Aldakheel},
+  title     = {The Concrete Security of Two-Party Computation: Simple Definitions, and Tight Proofs for {PSI} and {OPRF}s},
+  booktitle = {{ASIACRYPT} 2024},
+  publisher = {Springer, Heidelberg},
+  series    = {{LNCS}},
+  year      = {2024}
+}`,
+      '2024/803': `@InProceedings{AC:BRTZ24,
+  author    = {Mihir Bellare and Doreen Riepel and Stefano Tessaro and Yizhao Zhang},
+  title     = {Count Corruptions, Not Users: Improved Tightness for Signatures, Encryption and Authenticated Key Exchange},
+  booktitle = {{ASIACRYPT} 2024},
+  publisher = {Springer, Heidelberg},
+  series    = {{LNCS}},
+  year      = {2024}
+}`,
+      '2024/1231': `@InProceedings{AC:DRS24,
+  author    = {Emanuele Di Giandomenico and Doreen Riepel and Sven Schäge},
+  title     = {Tightly-Secure Group Key Exchange with Perfect Forward Secrecy},
+  booktitle = {{ASIACRYPT} 2024},
+  publisher = {Springer, Heidelberg},
+  series    = {{LNCS}},
+  year      = {2024}
+}`,
+      '2024/1350': `@InProceedings{CCS:CRT24,
+  author    = {Daniel Collins and Doreen Riepel and Si An Oliver Tran},
+  title     = {On the Tight Security of the Double Ratchet},
+  booktitle = {{CCS} 2024},
+  publisher = {{ACM}},
+  year      = {2024}
+}`,
+      '2023/143': `@InProceedings{CCS:RVV24,
+  author    = {Doreen Riepel and Marloes Venema and Tanya Verma},
+  title     = {{ISABELLA}: Improving Structures of Attribute-Based Encryption Leveraging Linear Algebra},
+  booktitle = {{CCS} 2024},
+  publisher = {{ACM}},
+  year      = {2024}
+}`,
+      '2023/1784': `@InProceedings{EC:PRZ24,
+  author    = {Jiaxin Pan and Doreen Riepel and Runzhi Zeng},
+  title     = {Key Exchange with Tight (Full) Forward Secrecy via Key Confirmation},
+  booktitle = {{EUROCRYPT} 2024},
+  publisher = {Springer, Heidelberg},
+  series    = {{LNCS}},
+  year      = {2024}
+}`,
+      '2023/1796': `@InProceedings{PQCrypto:MR24,
+  author    = {Jonas Meers and Doreen Riepel},
+  title     = {{CCA} Secure Updatable Encryption from Non-Mappable Group Actions},
+  booktitle = {{PQCrypto} 2024},
+  publisher = {Springer, Heidelberg},
+  series    = {{LNCS}},
+  year      = {2024}
+}`,
+      '2024/1051': `@InProceedings{AC:LTZ24,
+  author    = {Xiangyu Liu and Ioannis Tzannetos and Vassilis Zikas},
+  title     = {Adaptor Signatures: New Security Definition and {A} Generic Construction for {NP} Relations},
+  booktitle = {{ASIACRYPT} 2024},
+  publisher = {Springer, Heidelberg},
+  series    = {{LNCS}},
+  year      = {2024}
+}`,
+      '2022/882': `@InProceedings{CTRSA:KPRR23,
+  author    = {Eike Kiltz and Jiaxin Pan and Magnus Ringerud and Doreen Riepel},
+  title     = {Multi-User {CDH} Problems and the Concrete Security of {NAXOS} and {HMQV}},
+  booktitle = {{CT-RSA} 2023},
+  publisher = {Springer, Heidelberg},
+  series    = {{LNCS}},
+  year      = {2023}
+}`,
+      '2022/1466': `@InProceedings{PKC:DHKKLR23,
+  author    = {Julien Duman and Dominik Hartmann and Eike Kiltz and Sabrina Kunzweiler and Jonas Lehmann and Doreen Riepel},
+  title     = {Generic Models for Group Actions},
+  booktitle = {{PKC} 2023},
+  publisher = {Springer, Heidelberg},
+  series    = {{LNCS}},
+  year      = {2023}
+}`,
+      '2023/170': `@InProceedings{PKC:LLHG23,
+  author    = {Xiangyu Liu and Shengli Liu and Shuai Han and Dawu Gu},
+  title     = {{EKE} Meets Tight Security in the Universally Composable Framework},
+  booktitle = {{PKC} 2023},
+  publisher = {Springer, Heidelberg},
+  series    = {{LNCS}},
+  year      = {2023}
+}`,
+      '2021/1426': `@InProceedings{AC:DHRR22,
+  author    = {Benjamin Dowling and Eduard Hauck and Doreen Riepel and Paul Rösler},
+  title     = {Strongly Anonymous Ratcheted Key Exchange},
+  booktitle = {{ASIACRYPT} 2022},
+  publisher = {Springer, Heidelberg},
+  series    = {{LNCS}},
+  year      = {2022}
+}`,
+      '2022/1238': `@InProceedings{AC:DHKKLR22,
+  author    = {Julien Duman and Dominik Hartmann and Eike Kiltz and Sabrina Kunzweiler and Jonas Lehmann and Doreen Riepel},
+  title     = {Group Action Key Encapsulation and Non-Interactive Key Exchange in the {QROM}},
+  booktitle = {{ASIACRYPT} 2022},
+  publisher = {Springer, Heidelberg},
+  series    = {{LNCS}},
+  year      = {2022}
+}`,
+      '2022/1286': `@InProceedings{CCS:RW22,
+  author    = {Doreen Riepel and Hoeteck Wee},
+  title     = {{FABEO}: Fast Attribute-Based Encryption with Optimal Security},
+  booktitle = {{CCS} 2022},
+  publisher = {{ACM}},
+  year      = {2022}
+}`,
+      '2022/117': `@InProceedings{CRYPTO:AEKRR22,
+  author    = {Michel Abdalla and Thorsten Eisenhofer and Eike Kiltz and Sabrina Kunzweiler and Doreen Riepel},
+  title     = {Password-Authenticated Key Exchange from Group Actions},
+  booktitle = {{CRYPTO} 2022},
+  publisher = {Springer, Heidelberg},
+  series    = {{LNCS}},
+  year      = {2022}
+}`,
+      '2021/756': `@InProceedings{CRYPTO:HJKLLRS21,
+  author    = {Shuai Han and Tibor Jager and Eike Kiltz and Shengli Liu and Jiaxin Pan and Doreen Riepel and Sven Schäge},
+  title     = {Authenticated Key Exchange and Signatures with Tight Security in the Standard Model},
+  booktitle = {{CRYPTO} 2021},
+  publisher = {Springer, Heidelberg},
+  series    = {{LNCS}},
+  year      = {2021}
+}`,
+      '2020/1499': `@InProceedings{EC:ABHMR21,
+  author    = {Joël Alwen and Bruno Blanchet and Eduard Hauck and Eike Kiltz and Benjamin Lipp and Doreen Riepel},
+  title     = {Analysing the {HPKE} Standard},
+  booktitle = {{EUROCRYPT} 2021},
+  publisher = {Springer, Heidelberg},
+  series    = {{LNCS}},
+  year      = {2021}
+}`,
+      '2021/205': `@InProceedings{EC:JKRS21,
+  author    = {Tibor Jager and Eike Kiltz and Doreen Riepel and Sven Schäge},
+  title     = {Tightly-Secure Authenticated Key Exchange, Revisited},
+  booktitle = {{EUROCRYPT} 2021},
+  publisher = {Springer, Heidelberg},
+  series    = {{LNCS}},
+  year      = {2021}
+}`,
+      '2020/1088': `@InProceedings{AC:LLGW20,
+  author    = {Xiangyu Liu and Shengli Liu and Dawu Gu and Jian Weng},
+  title     = {Two-Pass Authenticated Key Exchange with Explicit Authentication and Tight Security},
+  booktitle = {{ASIACRYPT} 2020},
+  publisher = {Springer, Heidelberg},
+  series    = {{LNCS}},
+  year      = {2020}
+}`,
+      '2022/1258': `@InProceedings{ACISP:LLG20,
+  author    = {Xiangyu Liu and Shengli Liu and Dawu Gu},
+  title     = {Tightly Secure Chameleon Hash Functions in the Multi-User Setting and Their Applications},
+  booktitle = {{ACISP} 2020},
+  publisher = {Springer, Heidelberg},
+  series    = {{LNCS}},
+  year      = {2020}
+}`,
+    };
+
+    const bibByArxiv = {
+      '2210.09126': `@inproceedings{SaTML:ERCGOP25,
+  author    = {Thorsten Eisenhofer and Doreen Riepel and Varun Chandrasekaran and Esha Ghosh and Olga Ohrimenko and Nicolas Papernot},
+  title     = {Verifiable and Provably Secure Machine Unlearning},
+  booktitle = {2025 {IEEE} Conference on Secure and Trustworthy Machine Learning ({SaTML})},
+  month     = apr,
+  year      = {2025},
+  publisher = {{IEEE} Computer Society}
+}`,
+      '2303.14443': `@InProceedings{USENIX:EQMRHR23,
+  author    = {Thorsten Eisenhofer and Erwin Quiring and Jonas Möller and Doreen Riepel and Thorsten Holz and Konrad Rieck},
+  title     = {No More Reviewer \\#2: Subverting Automatic Paper-Reviewer Assignment using Adversarial Learning},
+  booktitle = {{USENIX} Security 2023},
+  year      = {2023}
+}`,
+    };
+
+    // Auto-inject cite buttons
+    document.querySelectorAll('.pub').forEach(pub => {
+      let bib = null;
+      for (const a of pub.querySelectorAll('a.pub-link')) {
+        const m1 = a.href.match(/eprint\.iacr\.org\/(\d{4}\/\d+)/);
+        if (m1 && bibByEprint[m1[1]]) { bib = bibByEprint[m1[1]]; break; }
+        const m2 = a.href.match(/arxiv\.org\/(?:abs|pdf)\/(\d+\.\d+)/);
+        if (m2 && bibByArxiv[m2[1]]) { bib = bibByArxiv[m2[1]]; break; }
+      }
+      if (!bib) return;
+      const linksDiv = pub.querySelector('.pub-links');
+      if (!linksDiv) return;
+      const btn = document.createElement('button');
+      btn.className = 'pub-link cite-btn';
+      btn.textContent = 'cite';
+      btn.dataset.bib = bib;
+      linksDiv.appendChild(btn);
+    });
+
+    // Cite modal logic
+    const citeOverlay = document.getElementById('cite-overlay');
+    const citeContent = document.getElementById('cite-content');
+    const citeCopy    = document.getElementById('cite-copy');
+
+    document.addEventListener('click', e => {
+      if (e.target.classList.contains('cite-btn')) {
+        citeContent.textContent = e.target.dataset.bib;
+        citeOverlay.classList.add('active');
+      }
+    });
+    citeOverlay.addEventListener('click', e => {
+      if (e.target === citeOverlay) citeOverlay.classList.remove('active');
+    });
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') citeOverlay.classList.remove('active');
+    });
+    citeCopy.addEventListener('click', () => {
+      navigator.clipboard.writeText(citeContent.textContent);
+      citeCopy.textContent = 'copied!';
+      setTimeout(() => citeCopy.textContent = 'copy', 1500);
+    });
+
+    // Highlight team member names in all author lists
+    const teamMembers = ['Doreen Riepel', 'Xiangyu Liu', 'Subham Das'];
+    document.querySelectorAll('.pub-authors').forEach(el => {
+      let html = el.innerHTML;
+      teamMembers.forEach(name => {
+        html = html.replace(new RegExp(name, 'g'),
+          `<span class="team-author">${name}</span>`);
+      });
+      el.innerHTML = html;
+    });
+
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+      link.addEventListener('click', e => {
+        const target = document.querySelector(link.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>

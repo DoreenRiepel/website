@@ -1,0 +1,77 @@
+:root {
+  --bulma-primary-h: 215deg;
+  --bulma-primary-s: 14%;
+  --bulma-primary-l: 21%;
+  --panelcolor: #b8b8b8;
+  --cardcolor: #d6d6d6;
+  --backgroundcolor: #d6d6d6;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/></filter><rect width='200' height='200' filter='url(%23n)'/></svg>");
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  opacity: 0.06;
+  pointer-events: none;
+  z-index: -1;
+}
+
+html {
+  background: #1e3048;
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+body {
+  background: transparent;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+.card {
+  background-color: var(--cardcolor);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25), 0 16px 40px rgba(0, 0, 0, 0.3);
+  margin-top: 2.5rem;
+  padding: 2rem 3rem 2.5rem;
+  border-radius: 2rem;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+section.section .container {
+  max-width: 1000px !important;
+}
+
+/* === Tooltip styling === */
+.custom-tooltip-container {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.custom-tooltip {
+  visibility: hidden;
+  background-color: #21232B;
+  color: #fff;
+  text-align: center;
+  padding: 20px 20px 15px;
+  border-radius: 8px;
+  position: absolute;
+  font-size: 0.8em;
+  border: 1px solid black;
+  z-index: 10;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-10px);
+  width: 400px;
+}
+
+.custom-tooltip-container:hover .custom-tooltip {
+  visibility: visible;
+}
