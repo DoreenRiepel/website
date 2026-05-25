@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>News · provsec</title>
+  <link rel="icon" href="favicon.ico">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+  <link rel="stylesheet" href="custom.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body, p, a, li { font-family: 'Montserrat', sans-serif; color: #1a1a1a; }
+    .section-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.1em;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: #1e3048;
+      margin-bottom: 0.9rem;
+    }
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 2.5rem;
+      height: 3px;
+      background: #4a85c2;
+      border-radius: 2px;
+      margin-top: 0.4rem;
+    }
+    .card {
+      background-color: #d6d6d6;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25), 0 16px 40px rgba(0,0,0,0.3);
+      margin-top: 2.5rem;
+      padding: 2rem 3rem 2.5rem;
+      border-radius: 2rem;
+    }
+    .card p a { color: #4a85c2; font-weight: 500; text-decoration: none; }
+    .card p a:hover { text-decoration: underline; }
+
+    .news-feed { display: flex; flex-direction: column; }
+    .news-item {
+      display: flex;
+      gap: 1.5rem;
+      padding: 0.55rem 0;
+      align-items: baseline;
+    }
+    .news-feed > * + * { border-top: 1px solid rgba(0,0,0,0.08); }
+    .news-date {
+      font-family: 'SF Mono', 'Fira Code', Consolas, monospace;
+      font-size: 0.78em;
+      color: #4a85c2;
+      white-space: nowrap;
+      width: 4.2rem;
+      flex-shrink: 0;
+    }
+    .news-text { font-size: 0.95em; line-height: 1.75; }
+  </style>
+</head>
+<body>
+  <section class="section pt-5 pb-4">
+  <div class="container" style="max-width: 1000px;">
+    <nav style="margin-bottom: 1rem;">
+      <a href="/" style="font-family: 'Montserrat', sans-serif; color: #4c5a6c; text-decoration: none; font-size: 0.9em;">← Back to provsec</a>
+    </nav>
+    <div class="card">
+      <p class="section-title">News</p>
+      <div class="news-feed">
+
+        <div class="news-item">
+          <span class="news-date">May 2026</span>
+          <p class="news-text">Together with <a href="https://www.simula.no/people/martijn" target="_blank">Martijn Stam</a>, <a href="https://doreenriepel.me" target="_blank">Doreen</a> organizes <a href="https://protecs-workshop.gitlab.io" target="_blank">ProTeCS</a>, a workshop on Proofs and Proof Techniques for Cryptographic Security, as an affiliated event at EUROCRYPT 2026 in Rome. We are very happy to have <a href="https://www.bartmennink.nl/" target="_blank">Bart Mennink</a> and <a href="https://web.engr.oregonstate.edu/~rosulekm/" target="_blank">Mike Rosulek</a> as invited speakers!</p>
+        </div>
+
+        <div class="news-item">
+          <span class="news-date">Apr 2026</span>
+          <p class="news-text"><a href="https://doreenriepel.me" target="_blank">Doreen</a> and <a href="https://sabrinakunzweiler.github.io/" target="_blank">Sabrina Kunzweiler</a> launch <strong style="color: #2a6fae;">PELICAN</strong> 🐦, an Équipe Associée funded by Inria to improve the provable security of isogeny-based cryptographic protocols. The funding supports mutual visits between our groups.</p>
+        </div>
+
+        <div class="news-item">
+          <span class="news-date">Mar 2026</span>
+          <p class="news-text"><a href="https://xiangyuliu-yahoo.github.io" target="_blank">Xiangyu</a> joins the PKC 2027 program committee. 📋</p>
+        </div>
+
+        <div class="news-item">
+          <span class="news-date">Feb 2026</span>
+          <p class="news-text"><a href="https://eprint.iacr.org/2025/2075" target="_blank">Leveled Isogeny Problems with Hints</a> accepted at PKC 2026 🎉 Great work Subham!</p>
+        </div>
+
+        <div class="news-item">
+          <span class="news-date">Feb 2026</span>
+          <p class="news-text">Two papers accepted at EUROCRYPT 2026 🔐 — <a href="https://eprint.iacr.org/2026/434" target="_blank">Secure Cloud Storage</a> and <a href="https://eprint.iacr.org/2026/032" target="_blank">The Algebraic Isogeny Model</a>. See you in Rome!</p>
+        </div>
+
+        <div class="news-item">
+          <span class="news-date">Jan 2026</span>
+          <p class="news-text"><a href="https://doreenriepel.me" target="_blank">Doreen</a> joins the CRYPTO 2026 program committee. 📋</p>
+        </div>
+
+        <div class="news-item">
+          <span class="news-date">Sep 2025</span>
+          <p class="news-text"><a href="https://cryptosubh.github.io/" target="_blank">Subham</a> puts down roots and starts his PhD 🌱. Welcome to the team!</p>
+        </div>
+
+        <div class="news-item">
+          <span class="news-date">Jun 2025</span>
+          <p class="news-text"><a href="https://xiangyuliu-yahoo.github.io" target="_blank">Xiangyu Liu</a> joins as a Postdoc 🎊 and <a href="index.html#team">Weidan Ji</a> joins as a remote intern. The group is growing!</p>
+        </div>
+
+        <div class="news-item">
+          <span class="news-date">May 2025</span>
+          <p class="news-text"><a href="https://eprint.iacr.org/2025/1230" target="_blank">ABE Cubed</a> accepted at CHES 2025 🛠️. A big benchmarking effort for attribute-based encryption — great collaboration with the team!</p>
+        </div>
+
+        <div class="news-item">
+          <span class="news-date">Mar 2025</span>
+          <p class="news-text">Two papers accepted at PKC 2025: <a href="https://eprint.iacr.org/2025/663" target="_blank">Intermundium-DL</a> and <a href="https://eprint.iacr.org/2024/536" target="_blank">Public-Algorithm Substitution Attacks</a>. Joint work with Mihir Bellare and Laura Shea at UCSD.</p>
+        </div>
+
+        <div class="news-item">
+          <span class="news-date">Feb 2025</span>
+          <p class="news-text"><a href="https://arxiv.org/abs/2210.09126" target="_blank">Verifiable and Provably Secure Machine Unlearning</a> will be presented at SaTML 2025 in Copenhagen 🇩🇰.</p>
+        </div>
+
+        <div class="news-item">
+          <span class="news-date">Jan 2025</span>
+          <p class="news-text">provsec is officially live at CISPA 🚀 Excited to get started!</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  </section>
+</body>
+</html>
