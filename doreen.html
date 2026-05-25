@@ -46,6 +46,7 @@
       padding: 0.2rem 0.65rem; text-decoration: none;
     }
     .navbar-item:hover { background-color: rgba(255,255,255,0.12) !important; color: white; }
+    .navbar-item.active { background-color: rgba(255,255,255,0.12); color: white; }
 
     .section-title {
       font-size: 1.1em; letter-spacing: 0.1em; text-transform: uppercase;
@@ -122,6 +123,7 @@
     }
     .pub-title:hover { opacity: 0.75; }
     .pub-authors { font-size: 0.85em; color: #4c5a6c; margin: 0.25rem 0; }
+    .team-author { color: #1e3048; font-weight: 600; }
     .pub-venue { font-size: 0.85em; color: #1e3048; opacity: 0.75; font-style: italic; }
     .pub-links { margin-top: 0.35rem; display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; }
     .pub-link {
@@ -865,6 +867,28 @@
       citeCopy.textContent = 'copied!';
       setTimeout(() => citeCopy.textContent = 'copy', 1500);
     });
+
+    // Author highlighting
+    document.querySelectorAll('.pub-authors').forEach(el => {
+      el.innerHTML = el.innerHTML.replace(/Doreen Riepel/g,
+        '<span class="team-author">Doreen Riepel</span>');
+    });
+
+    // Scroll spy
+    (function () {
+      const sections = Array.from(document.querySelectorAll('.card[id]'));
+      const navLinks = Array.from(document.querySelectorAll('.navbar-item[href^="#"]'));
+      function updateActive() {
+        const scrollY = window.scrollY;
+        let current = sections[0];
+        for (const s of sections) {
+          if (s.offsetTop <= scrollY) current = s;
+        }
+        navLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + current.id));
+      }
+      window.addEventListener('scroll', updateActive, { passive: true });
+      updateActive();
+    })();
 
     // Smooth scroll
     document.querySelectorAll('a[href^="#"]').forEach(link => {

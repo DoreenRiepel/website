@@ -71,6 +71,7 @@
       background-color: rgba(255, 255, 255, 0.12) !important;
       color: white;
     }
+    .navbar-item.active { background-color: rgba(255,255,255,0.12); color: white; }
 
     .section-title {
       font-size: 1.1em;
@@ -1218,6 +1219,22 @@
       });
       el.innerHTML = html;
     });
+
+    // Scroll spy
+    (function () {
+      const sections = Array.from(document.querySelectorAll('.card[id]'));
+      const navLinks = Array.from(document.querySelectorAll('.navbar-item[href^="#"]'));
+      function updateActive() {
+        const scrollY = window.scrollY;
+        let current = sections[0];
+        for (const s of sections) {
+          if (s.offsetTop <= scrollY) current = s;
+        }
+        navLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + current.id));
+      }
+      window.addEventListener('scroll', updateActive, { passive: true });
+      updateActive();
+    })();
 
     document.querySelectorAll('a[href^="#"]').forEach(link => {
       link.addEventListener('click', e => {
