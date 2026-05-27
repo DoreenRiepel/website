@@ -215,6 +215,8 @@
       .service-reviewing { grid-column: auto; grid-row: auto; }
       .about-hero { flex-direction: column; align-items: center; }
       .about-hero > div { width: 100%; }
+      .about-icon-rows { flex-direction: row !important; flex-wrap: wrap; gap: 0.9rem !important; }
+      .about-icon-row { display: contents; }
     }
   </style>
 </head>
@@ -254,13 +256,27 @@
     <div class="card" id="about">
       <p class="section-title">Doreen Riepel</p>
       <div class="about-hero" style="display: flex; gap: 2rem; align-items: flex-start; flex-wrap: wrap;">
-        <img src="team/doreen.jpg" alt="Doreen Riepel"
-             style="width: 130px; height: 130px; border-radius: 50%; border: 2px solid #b0bac9; flex-shrink: 0;">
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 0.75rem; flex-shrink: 0;">
+          <img src="team/doreen.jpg" alt="Doreen Riepel"
+               style="width: 130px; height: 130px; border-radius: 50%; border: 2px solid #b0bac9;">
+          <div class="about-icon-rows" style="display: flex; flex-direction: column; align-items: center; gap: 0;">
+            <div class="about-icon-row" style="display: flex; gap: 0.9rem; align-items: center; justify-content: center;">
+              <a href="https://scholar.google.com/citations?user=H475kXsAAAAJ" target="_blank" title="Google Scholar" style="color: #4c5a6c; font-size: 1.35em; transition: color 0.15s;" onmouseover="this.style.color='#1e3048'" onmouseout="this.style.color='#4c5a6c'"><i class="ai ai-google-scholar"></i></a>
+              <a href="https://bsky.app/profile/doreenriepel.bsky.social" target="_blank" title="Bluesky" style="color: #4c5a6c; font-size: 1.35em; transition: color 0.15s;" onmouseover="this.style.color='#1e3048'" onmouseout="this.style.color='#4c5a6c'"><i class="fa-brands fa-bluesky"></i></a>
+              <a href="https://orcid.org/0000-0002-4990-0929" target="_blank" title="ORCID" style="color: #4c5a6c; font-size: 1.35em; transition: color 0.15s;" onmouseover="this.style.color='#1e3048'" onmouseout="this.style.color='#4c5a6c'"><i class="ai ai-orcid"></i></a>
+              <a href="https://www.linkedin.com/in/doreen-riepel-140196109/" target="_blank" title="LinkedIn" style="color: #4c5a6c; font-size: 1.35em; transition: color 0.15s;" onmouseover="this.style.color='#1e3048'" onmouseout="this.style.color='#4c5a6c'"><i class="fa-brands fa-linkedin"></i></a>
+            </div>
+            <div class="about-icon-row" style="display: flex; gap: 0.9rem; align-items: center; justify-content: center;">
+              <a href="mailto:riepel@cispa.de" title="riepel@cispa.de" style="color: #4c5a6c; font-size: 1.35em; transition: color 0.15s;" onmouseover="this.style.color='#1e3048'" onmouseout="this.style.color='#4c5a6c'"><i class="fas fa-envelope"></i></a>
+              <a href="uploads/cv.pdf" target="_blank" style="color: #4c5a6c; font-size: 0.85em; font-weight: 600; letter-spacing: 0.05em; transition: color 0.15s;" onmouseover="this.style.color='#1e3048'" onmouseout="this.style.color='#4c5a6c'">CV</a>
+            </div>
+          </div>
+        </div>
         <div style="flex: 1; min-width: 200px;">
           <p style="font-size: 0.95em; line-height: 1.75;">
             I am a tenure-track faculty member at <a href="https://cispa.de" target="_blank">CISPA Helmholtz Center for Information Security</a>,
             where I am part of the research area <em>Algorithmic Foundations and Cryptography</em>.
-            <a href="index.html">My group</a> focuses mainly on provable security. 
+            <a href="index.html">My group</a> focuses mainly on provable security.
             Previously, I was a postdoctoral researcher at UC San Diego working with
             <a href="https://cseweb.ucsd.edu/~mihir/" target="_blank">Mihir Bellare</a>.
             I received my PhD from Ruhr University Bochum under the supervision of
@@ -272,14 +288,6 @@
           <p style="font-size: 0.95em; line-height: 1.75; margin-top: 0.75rem;">
             More broadly, I aim to increase the rigor and reliability of cryptographic research. For example, I am interested in computer-assisted proofs and the formal verification of security arguments, with the goal of bringing provable security closer to techniques from formal methods. I am also interested in strengthening the foundations of isogeny-based cryptography by better aligning provable security techniques with the underlying mathematics.</a>.
           </p>
-          <div style="display: flex; gap: 0.9rem; margin-top: 1rem; align-items: center; flex-wrap: wrap;">
-            <a href="mailto:riepel@cispa.de" title="riepel@cispa.de" style="color: #4c5a6c; font-size: 1.35em; transition: color 0.15s;" onmouseover="this.style.color='#1e3048'" onmouseout="this.style.color='#4c5a6c'"><i class="fas fa-envelope"></i></a>
-<a href="https://scholar.google.com/citations?user=H475kXsAAAAJ" target="_blank" title="Google Scholar" style="color: #4c5a6c; font-size: 1.35em; transition: color 0.15s;" onmouseover="this.style.color='#1e3048'" onmouseout="this.style.color='#4c5a6c'"><i class="ai ai-google-scholar"></i></a>
-            <a href="https://bsky.app/profile/doreenriepel.bsky.social" target="_blank" title="Bluesky" style="color: #4c5a6c; font-size: 1.35em; transition: color 0.15s;" onmouseover="this.style.color='#1e3048'" onmouseout="this.style.color='#4c5a6c'"><i class="fa-brands fa-bluesky"></i></a>
-            <a href="https://orcid.org/0000-0002-4990-0929" target="_blank" title="ORCID" style="color: #4c5a6c; font-size: 1.35em; transition: color 0.15s;" onmouseover="this.style.color='#1e3048'" onmouseout="this.style.color='#4c5a6c'"><i class="ai ai-orcid"></i></a>
-            <a href="https://www.linkedin.com/in/doreen-riepel-140196109/" target="_blank" title="LinkedIn" style="color: #4c5a6c; font-size: 1.35em; transition: color 0.15s;" onmouseover="this.style.color='#1e3048'" onmouseout="this.style.color='#4c5a6c'"><i class="fa-brands fa-linkedin"></i></a>
-            <a href="uploads/cv.pdf" target="_blank" style="color: #4c5a6c; font-size: 0.85em; font-weight: 600; letter-spacing: 0.05em; transition: color 0.15s;" onmouseover="this.style.color='#1e3048'" onmouseout="this.style.color='#4c5a6c'">CV</a>
-          </div>
         </div>
       </div>
     </div>
