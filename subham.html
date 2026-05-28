@@ -92,14 +92,56 @@
     }
     button.pub-link { background: none; cursor: pointer; }
     button.pub-link::-moz-focus-inner { border: 0; }
+
+    .site-header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      background: rgba(30, 48, 72, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 0.6rem 1rem;
+    }
+    .navbar {
+      background: transparent; padding: 0;
+      max-width: 1000px; margin: 0 auto;
+      display: flex; justify-content: space-between; align-items: center;
+      box-shadow: none;
+    }
+    .navbar-logo { display: flex; align-items: center; padding: 0 0 0 1rem; }
+    .navbar-links {
+      background-color: rgba(255,255,255,0.1); backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255,255,255,0.18); border-radius: 2rem;
+      padding: 0.5rem 0.9rem; box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+      display: flex; align-items: center; gap: 0.1rem;
+    }
+    .navbar-item {
+      color: rgba(255,255,255,0.85); font-size: 0.85em; font-weight: bold;
+      letter-spacing: 0.03em; border-radius: 0.5rem; transition: background 0.15s;
+      padding: 0.2rem 0.65rem; text-decoration: none;
+    }
+    .navbar-item:hover { background-color: rgba(255,255,255,0.12) !important; color: white; }
+    .card { scroll-margin-top: 5.5rem; }
   </style>
 </head>
-<body>
-  <section class="section pt-5 pb-4">
-  <div class="container" style="max-width: 1000px;">
-    <nav style="margin-bottom: 1rem;">
-      <a href="index.html" style="font-family: 'Montserrat', sans-serif; color: #4c5a6c; text-decoration: none; font-size: 0.9em;">← Back to provsec</a>
+<body style="padding-top: 5rem;">
+
+  <header class="site-header">
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+      <a class="navbar-logo" href="index.html">
+        <img style="height: 3em; margin-bottom: 5px;" src="logo.svg" alt="provsec" />
+      </a>
+      <div class="navbar-links">
+        <a class="navbar-item" href="#about">About</a>
+        <a class="navbar-item" href="#publications">Publications</a>
+        <a class="navbar-item" href="#talks">Talks</a>
+      </div>
     </nav>
+  </header>
+
+  <section class="section pt-3 pb-4">
+  <div class="container" style="max-width: 1000px;">
 
     <!-- about -->
     <div class="card" id="about">
