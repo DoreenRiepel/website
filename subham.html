@@ -8,6 +8,8 @@
   <link rel="stylesheet" href="bulma.min.css">
   <link rel="stylesheet" href="custom.css">
   <link rel="stylesheet" href="fonts/fonts.css">
+  <link rel="stylesheet" href="fontawesome/css/all.min.css">
+  <link rel="stylesheet" href="academicons/css/academicons.min.css">
   <script defer src="https://cloud.umami.is/script.js" data-website-id="b9797a1d-40fd-4da0-8e4f-becd8595ed48"></script>
   <style>
     body, p, a, li, span { font-family: 'Montserrat', sans-serif; color: #1a1a1a; }
@@ -103,8 +105,17 @@
     <div class="card" id="about">
       <p class="section-title">Subham Das</p>
       <div style="display: flex; gap: 2rem; align-items: flex-start; flex-wrap: wrap;">
-        <img src="team/subham.jpg" alt="Subham Das"
-             style="width: 130px; height: 130px; border-radius: 50%; border: 2px solid #b0bac9; flex-shrink: 0;">
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 0.75rem; flex-shrink: 0;">
+          <img src="team/subham.jpg" alt="Subham Das"
+               style="width: 130px; height: 130px; border-radius: 50%; border: 2px solid #b0bac9;">
+          <div style="display: flex; gap: 0.9rem; align-items: center; justify-content: center; flex-wrap: wrap;">
+            <a href="mailto:subham.das@cispa.de" title="subham.das@cispa.de" style="color: #4c5a6c; font-size: 1.35em; transition: color 0.15s;" onmouseover="this.style.color='#1e3048'" onmouseout="this.style.color='#4c5a6c'"><i class="fas fa-envelope"></i></a>
+            <a href="https://scholar.google.com/citations?user=GwQRzbkAAAAJ" target="_blank" title="Google Scholar" style="color: #4c5a6c; font-size: 1.35em; transition: color 0.15s;" onmouseover="this.style.color='#1e3048'" onmouseout="this.style.color='#4c5a6c'"><i class="ai ai-google-scholar"></i></a>
+            <a href="https://orcid.org/0009-0002-4659-4070" target="_blank" title="ORCID" style="color: #4c5a6c; font-size: 1.35em; transition: color 0.15s;" onmouseover="this.style.color='#1e3048'" onmouseout="this.style.color='#4c5a6c'"><i class="ai ai-orcid"></i></a>
+            <a href="https://www.linkedin.com/in/subham-das-279004342/" target="_blank" title="LinkedIn" style="color: #4c5a6c; font-size: 1.35em; transition: color 0.15s;" onmouseover="this.style.color='#1e3048'" onmouseout="this.style.color='#4c5a6c'"><i class="fa-brands fa-linkedin"></i></a>
+            <a href="https://cryptosubh.github.io/" target="_blank" title="Website" style="color: #4c5a6c; font-size: 1.35em; transition: color 0.15s;" onmouseover="this.style.color='#1e3048'" onmouseout="this.style.color='#4c5a6c'"><i class="fas fa-globe"></i></a>
+          </div>
+        </div>
         <div style="flex: 1; min-width: 200px;">
           <p style="font-size: 0.95em; line-height: 1.75;">
             Subham Das is a PhD student at <a href="https://cispa.de" target="_blank">CISPA Helmholtz Center for Information Security</a>, advised by <a href="doreen.html">Doreen Riepel</a>. His research interests include foundations of real-world cryptography, formal methods in cryptography, and post-quantum cryptography. More information can be found on his <a href="https://cryptosubh.github.io/" target="_blank">personal website</a>.
@@ -134,6 +145,18 @@
         </div>
       </details>
 
+    </div>
+
+    <!-- talks -->
+    <div class="card" id="talks">
+      <p class="section-title">Talks</p>
+      <div class="pub">
+        <p class="pub-title">When is an AKE Protocol Secure Against State Reveals: Revisiting Models, Protocols, and Transforms</p>
+        <p class="pub-venue" style="font-style: normal; opacity: 1; color: #4c5a6c; font-size: 0.85em;">ProTeCS 2026 — Workshop on Proofs and Proof Techniques for Cryptographic Security, Rome</p>
+        <div class="pub-links">
+          <a class="pub-link" href="uploads/slides_protecs26_subham-das.pdf" target="_blank">slides</a>
+        </div>
+      </div>
     </div>
 
   </div>
