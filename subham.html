@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Subham Das · provsec</title>
+  <link rel="icon" href="favicon.ico">
+  <link rel="stylesheet" href="bulma.min.css">
+  <link rel="stylesheet" href="custom.css">
+  <link rel="stylesheet" href="fonts/fonts.css">
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="b9797a1d-40fd-4da0-8e4f-becd8595ed48"></script>
+  <style>
+    body, p, a, li, span { font-family: 'Montserrat', sans-serif; color: #1a1a1a; }
+    .section-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.1em;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: #1e3048;
+      margin-bottom: 0.9rem;
+    }
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 2.5rem;
+      height: 3px;
+      background: #4a85c2;
+      border-radius: 2px;
+      margin-top: 0.4rem;
+    }
+    .card {
+      background-color: #d6d6d6;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25), 0 16px 40px rgba(0,0,0,0.3);
+      margin-top: 2.5rem;
+      padding: 2rem 3rem 2.5rem;
+      border-radius: 2rem;
+    }
+    .card p a { color: #4a85c2; font-weight: 500; text-decoration: none; }
+    .card p a:hover { text-decoration: underline; }
+
+    .pub { padding: 0.1rem 0 0.1rem 0.75rem; border-left: 1px solid rgba(0,0,0,0.15); margin-bottom: 1.1rem; }
+    .pub:last-child { margin-bottom: 0; }
+    .pub-title { font-family: 'Montserrat', sans-serif; font-weight: bold; color: #1e3048; text-decoration: none; font-size: 0.95em; line-height: 1.4; }
+    .pub-title:hover { opacity: 0.75; }
+    .pub-authors { font-size: 0.85em; color: #4c5a6c; margin: 0.25rem 0; }
+    .pub-venue { font-size: 0.85em; color: #1e3048; opacity: 0.75; font-style: italic; }
+    .pub-links { margin-top: 0.35rem; display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; }
+    .pub-link {
+      font-family: 'SF Mono', 'Fira Code', Consolas, monospace;
+      font-size: 0.75em; color: #1e3048; opacity: 0.7; text-decoration: none;
+      border: 1px solid rgba(0,0,0,0.18); border-radius: 0.3rem; padding: 0.1em 0.5em;
+      transition: opacity 0.15s, background-color 0.15s, border-color 0.15s;
+    }
+    .pub-link:hover { opacity: 1; background-color: rgba(0,0,0,0.05); border-color: rgba(0,0,0,0.3); }
+    .team-author { color: #1e3048; font-weight: 600; }
+
+    .pub-year { margin-bottom: 0.5rem; }
+    .pub-year summary {
+      font-family: 'Montserrat', sans-serif; font-weight: 600; font-variant: all-small-caps;
+      font-size: 1.15em; color: #1e3048; opacity: 0.8; cursor: pointer; list-style: none;
+      padding: 0.4rem 0; border-bottom: 1px solid rgba(0,0,0,0.15);
+      display: flex; justify-content: space-between; align-items: center; user-select: none;
+    }
+    .pub-year summary::-webkit-details-marker { display: none; }
+    .pub-year summary::after { content: "▸"; font-size: 0.8em; opacity: 0.5; transition: transform 0.15s ease; }
+    .pub-year[open] summary::after { transform: rotate(90deg); }
+    .pub-year[open] summary { opacity: 1; }
+    .pub-year .pub-year-content { padding-top: 0.75rem; }
+
+    /* cite modal */
+    .cite-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,0.55); z-index: 9999;
+      align-items: center; justify-content: center;
+    }
+    .cite-overlay.active { display: flex; }
+    .cite-box {
+      background: #d6d6d6; border-radius: 1rem;
+      padding: 1.5rem 2rem; max-width: 640px; width: 90%;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+    }
+    #cite-content {
+      font-family: 'SF Mono', 'Fira Code', Consolas, monospace;
+      font-size: 0.78em; line-height: 1.6; white-space: pre; overflow-x: auto;
+      color: #1e3048; background: rgba(0,0,0,0.06);
+      border-radius: 0.5rem; padding: 0.9rem 1rem;
+      margin: 0.6rem 0 0; display: block;
+      max-height: 60vh; overflow-y: auto;
+    }
+    button.pub-link { background: none; cursor: pointer; }
+    button.pub-link::-moz-focus-inner { border: 0; }
+  </style>
+</head>
+<body>
+  <section class="section pt-5 pb-4">
+  <div class="container" style="max-width: 1000px;">
+    <nav style="margin-bottom: 1rem;">
+      <a href="index.html" style="font-family: 'Montserrat', sans-serif; color: #4c5a6c; text-decoration: none; font-size: 0.9em;">← Back to provsec</a>
+    </nav>
+
+    <!-- about -->
+    <div class="card" id="about">
+      <p class="section-title">Subham Das</p>
+      <div style="display: flex; gap: 2rem; align-items: flex-start; flex-wrap: wrap;">
+        <img src="team/subham.jpg" alt="Subham Das"
+             style="width: 130px; height: 130px; border-radius: 50%; border: 2px solid #b0bac9; flex-shrink: 0;">
+        <div style="flex: 1; min-width: 200px;">
+          <p style="font-size: 0.95em; line-height: 1.75;">
+            Subham Das is a PhD student at <a href="https://cispa.de" target="_blank">CISPA Helmholtz Center for Information Security</a>, advised by <a href="doreen.html">Doreen Riepel</a>. His research focuses on isogeny-based cryptography and provable security. More information can be found on his <a href="https://cryptosubh.github.io/" target="_blank">personal website</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- publications -->
+    <div class="card" id="publications">
+      <p class="section-title">Publications</p>
+
+      <details class="pub-year" open>
+        <summary>2026</summary>
+        <div class="pub-year-content">
+
+          <div class="pub">
+            <a class="pub-title" href="https://eprint.iacr.org/2025/2075" target="_blank">Leveled Isogeny Problems with Hints</a>
+            <p class="pub-authors"><span class="team-author">Subham Das</span>, Riccardo Invernizzi, Péter Kutas, Jonas Meers</p>
+            <p class="pub-venue">IACR International Conference on Practice and Theory of Public-Key Cryptography (PKC), 2026</p>
+            <div class="pub-links">
+              <a class="pub-link" href="https://eprint.iacr.org/2025/2075" target="_blank">ePrint</a>
+              <button class="pub-link" onclick="showCite('2025/2075')">cite</button>
+            </div>
+          </div>
+
+        </div>
+      </details>
+
+    </div>
+
+  </div>
+  </section>
+
+  <!-- cite modal -->
+  <div class="cite-overlay" id="cite-overlay">
+    <div class="cite-box">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <span style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:0.9em; color:#1e3048;">BibTeX</span>
+        <div style="display:flex; gap:0.75rem; align-items:center;">
+          <button class="pub-link" id="cite-copy">copy</button>
+          <button class="pub-link" onclick="hideCite()">close</button>
+        </div>
+      </div>
+      <code id="cite-content"></code>
+    </div>
+  </div>
+
+  <script>
+    const bibtex = {
+      '2025/2075': `@InProceedings{PKC:DIKM26,
+  author    = {Subham Das and Riccardo Invernizzi and P{\\'{e}}ter Kutas and Jonas Meers},
+  title     = {Leveled Isogeny Problems with Hints},
+  booktitle = {{PKC} 2026},
+  publisher = {Springer, Heidelberg},
+  series    = {{LNCS}},
+  year      = {2026}
+}`
+    };
+
+    const citeOverlay = document.getElementById('cite-overlay');
+    const citeContent = document.getElementById('cite-content');
+    const citeCopy    = document.getElementById('cite-copy');
+
+    function showCite(key) {
+      citeContent.textContent = bibtex[key] || '';
+      citeOverlay.classList.add('active');
+    }
+    function hideCite() {
+      citeOverlay.classList.remove('active');
+    }
+
+    document.addEventListener('click', e => {
+      if (e.target === citeOverlay) hideCite();
+    });
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') hideCite();
+    });
+    citeCopy.addEventListener('click', () => {
+      navigator.clipboard.writeText(citeContent.textContent).then(() => {
+        citeCopy.textContent = 'copied!';
+        setTimeout(() => { citeCopy.textContent = 'copy'; }, 1500);
+      });
+    });
+
+    // Author highlighting
+    document.querySelectorAll('.pub-authors').forEach(el => {
+      el.innerHTML = el.innerHTML.replace(/Subham Das/g,
+        '<span class="team-author">Subham Das</span>');
+    });
+  </script>
+</body>
+</html>
